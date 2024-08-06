@@ -1,0 +1,14 @@
+<launch>
+
+	<!--<node pkg="tf" type="static_transform_publisher" name="world_to_base_link" args="0 0 0 0 0 0 world base_link 100" />
+	<node pkg="tf" type="static_transform_publisher" name="base_link_to_lidar" args="0 0 0 0 0 0 base_link os_sensor 100" />-->
+    <node pkg="local_map" type="local_map_pub" output="screen" name="local_map_pub">  
+        <param name="localmap_x_size" value="10"/>  
+        <param name="localmap_y_size" value="10"/>
+        <param name="resolution" value="0.05"/>
+        <param name="obs_height" value="-1.5"/>
+        <param name="step_height" value="0.5"/>
+        <param name="DBSCAN_R" value="4.0"/>
+        <param name="DBSCAN_N" value="20"/>
+    </node>
+</launch>

@@ -1,0 +1,44 @@
+<launch>
+    <!-- Launch Ouster ROS sensor -->
+    <!--<group ns="ouster_ros">
+        <include file="$(find ouster_ros)/launch/sensor.launch">
+            <arg name="sensor_hostname" value="os-122116000085.local"/>
+            <arg name="lidar_port" value="7502"/>
+            <arg name="imu_port" value="7503"/>
+        </include>
+    </group>-->
+
+    <!-- Run python scripts -->
+    <node name="bb_script" pkg="roslaunch" type="roslaunch" args="run python3 bb.py"/>
+    <node name="clip_script" pkg="roslaunch" type="roslaunch" args="run python3 clip.py"/>
+    <node name="filter_script" pkg="roslaunch" type="roslaunch" args="run python3 filter.py"/>
+    <node name="rotate_script" pkg="roslaunch" type="roslaunch" args="run python3 rotate.py"/>
+    <node name="rotate1_script" pkg="roslaunch" type="roslaunch" args="run python3 rotate1.py"/>
+
+    <!-- Launch HDL graph slam -->
+    <group ns="hdl_graph_slam">
+        <include file="$(find hdl_graph_slam)/launch/hdl_graph_slam.launch"/>
+    </group>
+
+    <!-- Run update python script -->
+    <node name="update_script" pkg="roslaunch" type="roslaunch" args="run python3 update.py"/>
+
+    <!-- Launch global path publisher -->
+    <group ns="global_path_publisher">
+        <include file="$(find global_path_publisher)/launch/pub_global_path.launch"/>
+    </group>
+
+    <!-- Launch local map -->
+    <group ns="local_map">
+        <include file="$(find local_map)/launch/local_map.launch"/>
+    </group>
+
+    <!-- Launch local planner -->
+    <group ns="local_planner">
+        <include file="$(find local_planner)/launch/local_planner.launch"/>
+    </group>
+
+    <!-- Run obs_param node -->
+    <node name="obs_param_node" pkg="obs_param" type="obs_kf" output="screen"/>
+</launch>
+
